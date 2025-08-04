@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group Task Binder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --lavender: #b57edc;
+      --lavender-light: #f3e5ff;
+      --lavender-dark: #7b4fa3;
+      --white: #ffffff;
+      --gray: #f4f4f4;
+      --text: #333;
+      --accent: #ff80ab;
+      --complete: #c3c3c3;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--lavender-light);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--white);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--lavender-dark);
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    form input,
+    form select,
+    form button {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--lavender);
+      font-size: 1rem;
+    }
+
+    form input[type="text"] {
+      flex: 2;
+    }
+
+    form input[type="date"],
+    form input[type="time"] {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    form button {
+      background-color: var(--lavender);
+      color: var(--white);
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
+    }
+
+    form button:hover {
+      background-color: var(--lavender-dark);
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    select {
+      background-color: var(--white);
+      border: 1px solid var(--lavender);
+    }
+
+    label {
+      margin-right: 0.3rem;
+    }
+
+    ul#task-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul#task-list li {
+      background-color: var(--gray);
+      border-left: 6px solid var(--lavender);
+      margin-bottom: 0.5rem;
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      gap: 0.75rem;
+      transition: background 0.2s ease-in-out;
+    }
+
+    ul#task-list li:hover {
+      background-color: var(--lavender-light);
+    }
+
+    .task-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .task-actions button {
+      background-color: var(--white);
+      color: var(--lavender-dark);
+      border: 1px solid var(--lavender-dark);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .task-actions button:hover {
+      background-color: var(--lavender-dark);
+      color: var(--white);
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: var(--complete);
+    }
+
+    @media (max-width: 600px) {
+      form {
+        flex-direction: column;
+      }
+
+      .task-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Group Task Binder</h2>
+
+    <form id="task-form">
+      <input type="text" id="task-user" placeholder="Your name..." />
+      <input type="text" id="task-title" placeholder="Enter task title..." />
+      <input type="date" id="task-due" />
+      <input type="time" id="task-time" />
+      <button type="submit">Add Task</button>
+      <div class="error" id="form-error" style="display:none;">Your name and task title are required</div>
+    </form>
+
+    <div style="margin-top: 1rem;">
+      <label for="filter">Filter:</label>
+      <select id="filter">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="incomplete">Incomplete</option>
+      </select>
+
+      <label for="sort" style="margin-left: 1rem;">Sort:</label>
+      <select id="sort">
+        <option value="">Default</option>
+        <option value="due">Due Date</option>
+      </select>
+    </div>
+
+    <ul id="task-list" style="margin-top: 1rem;"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById('task-form');
+    const userInput = document.getElementById('task-user');
+    const titleInput = document.getElementById('task-title');
+    const dueInput = document.getElementById('task-due');
+    const timeInput = document.getElementById('task-time');
+    const errorEl = document.getElementById('form-error');
+    const taskList = document.getElementById('task-list');
+    const filterSelect = document.getElementById('filter');
+    const sortSelect = document.getElementById('sort');
+
+    let tasks = [];
+    let editingId = null;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const user = userInput.value.trim();
+      const title = titleInput.value.trim();
+      const due = dueInput.value;
+      const time = timeInput.value;
+
+      if (!user || !title) {
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      errorEl.style.display = 'none';
+
+      if (editingId !== null) {
+        tasks[editingId].user = user;
+        tasks[editingId].title = title;
+        tasks[editingId].due = due;
+        tasks[editingId].time = time;
+        editingId = null;
+        form.querySelector('button').textContent = 'Add Task';
+      } else {
+        tasks.push({ user, title, due, time, completed: false });
+      }
+
+      userInput.value = '';
+      titleInput.value = '';
+      dueInput.value = '';
+      timeInput.value = '';
+      renderTasks();
+    });
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      let filteredTasks = [...tasks];
+
+      const filter = filterSelect.value;
+      if (filter === 'completed') {
+        filteredTasks = filteredTasks.filter(task => task.completed);
+      } else if (filter === 'incomplete') {
+        filteredTasks = filteredTasks.filter(task => !task.completed);
+      }
+
+      if (sortSelect.value === 'due') {
+        filteredTasks.sort((a, b) => new Date(a.due) - new Date(b.due));
+      }
+
+      filteredTasks.forEach((task, index) => {
+        const li = document.createElement('li');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        checkbox.addEventListener('change', () => {
+          task.completed = !task.completed;
+          renderTasks();
+        });
+
+        const span = document.createElement('span');
+        span.textContent = `${task.title}${task.due ? ` (Due: ${task.due}${task.time ? ` at ${task.time}` : ''})` : ''} — by ${task.user}`;
+        if (task.completed) span.classList.add('completed');
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => {
+          userInput.value = task.user;
+          titleInput.value = task.title;
+          dueInput.value = task.due;
+          timeInput.value = task.time || '';
+          editingId = index;
+          form.querySelector('button').textContent = 'Save Changes';
+        });
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => {
+          tasks.splice(index, 1);
+          renderTasks();
+        });
+
+        const actions = document.createElement('span');
+        actions.classList.add('task-actions');
+        actions.append(editBtn, deleteBtn);
+
+        li.append(checkbox, span, actions);
+        taskList.appendChild(li);
+      });
+    }
+
+    filterSelect.addEventListener('change', renderTasks);
+    sortSelect.addEventListener('change', renderTasks);
+  </script>
+</body>
+</html>
